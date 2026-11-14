@@ -7,7 +7,7 @@
 <meta name="description" content="STRAVIX is a modern Minecraft client designed to refine the vanilla experience.">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
     --bg: #080d16;
@@ -502,6 +502,123 @@ footer p {
     transform: translateY(0);
 }
 
+/* ========== COUNTDOWN OVERLAY ========== */
+.countdown-overlay {
+    position: fixed;
+    inset: 0;
+    background: #080d16;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.countdown-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.countdown-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.countdown-logo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 50px;
+}
+
+.countdown-logo span {
+    color: var(--blue);
+}
+
+.countdown-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--light);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.countdown-title {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.countdown-subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 55px;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+}
+
+.time-box {
+    background: rgba(16, 26, 42, 0.85);
+    border: 1px solid rgba(130, 180, 230, 0.15);
+    border-radius: 14px;
+    padding: 26px 20px;
+    min-width: 105px;
+    backdrop-filter: blur(10px);
+}
+
+.time-box .number {
+    font-size: clamp(34px, 6.5vw, 52px);
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+.time-box .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.close-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: color 0.25s;
+}
+
+.close-timer:hover {
+    color: white;
+}
+
+.countdown-date {
+    margin-top: 35px;
+    font-size: 13px;
+    color: #65768d;
+    letter-spacing: 1px;
+}
+
 /* MOBILE */
 @media(max-width: 750px) {
     .nav-links {
@@ -551,6 +668,40 @@ footer p {
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 
+<!-- ========== COUNTDOWN OVERLAY ========== -->
+<div class="countdown-overlay" id="countdownOverlay">
+    <div class="countdown-content">
+        <div class="countdown-logo">STRA<span>VIX</span></div>
+
+        <div class="countdown-eyebrow">Official Release</div>
+        <h2 class="countdown-title">Something big is coming</h2>
+        <p class="countdown-subtitle">The next generation of Eaglercraft is almost here.</p>
+
+        <div class="countdown">
+            <div class="time-box">
+                <div class="number" id="days">00</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="hours">00</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="minutes">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="seconds">00</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+
+        <button class="close-timer" id="closeTimer">← Back to home</button>
+
+        <div class="countdown-date">January 29, 2027</div>
+    </div>
+</div>
+
 <!-- NAVIGATION -->
 <nav>
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:90%;">
@@ -561,7 +712,7 @@ footer p {
             <a href="#about">About</a>
             <a href="#download">Download</a>
         </div>
-        <a href="#download" class="nav-button">Get STRAVIX ↗</a>
+        <a href="#" class="nav-button" id="openTimer1">Get STRAVIX ↗</a>
     </div>
 </nav>
 
@@ -577,7 +728,7 @@ footer p {
             polished client experience.
         </p>
         <div class="buttons">
-            <a href="#download" class="btn btn-primary">Discover STRAVIX →</a>
+            <a href="#" class="btn btn-primary" id="openTimer2">Discover STRAVIX →</a>
             <a href="#features" class="btn btn-secondary">Explore Features</a>
         </div>
         <div class="hero-bottom">BUILT FOR THE GAME YOU LOVE</div>
@@ -667,7 +818,7 @@ footer p {
             <p>We're working toward something different. Stay tuned for the official release.</p>
             <div class="status">COMING SOON</div>
             <br>
-            <a href="#" class="btn btn-primary" onclick="alert('STRAVIX is not available for download yet!'); return false;">Coming Soon</a>
+            <a href="#" class="btn btn-primary" id="openTimer3">Coming Soon</a>
         </div>
     </div>
 </section>
@@ -731,7 +882,6 @@ class Lightning {
             currentX = nextX;
             currentY = nextY;
         }
-        // Force last segment to end near target
         this.segments[this.segments.length - 1].x2 = this.targetX + (Math.random() - 0.5) * 40;
         this.segments[this.segments.length - 1].y2 = this.targetY + (Math.random() - 0.5) * 40;
     }
@@ -757,7 +907,6 @@ class Lightning {
         });
         ctx.stroke();
 
-        // Inner bright core
         ctx.strokeStyle = `rgba(255, 255, 255, ${0.8 * this.life})`;
         ctx.lineWidth = 1;
         ctx.shadowBlur = 8;
@@ -778,7 +927,6 @@ function createLightning() {
 
     bolts.push(new Lightning(startX, startY, endX, endY));
 
-    // Sometimes create a second branch
     if (Math.random() > 0.55) {
         const mid = bolts[bolts.length - 1].segments[Math.floor(bolts[bolts.length - 1].segments.length / 2)];
         bolts.push(new Lightning(mid.x1, mid.y1, mid.x1 + (Math.random() - 0.5) * 250, mid.y1 + 150 + Math.random() * 200));
@@ -790,14 +938,12 @@ function createLightning() {
 function animateLightning() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Screen flash
     if (flash > 0) {
         ctx.fillStyle = `rgba(100, 180, 255, ${flash * 0.25})`;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         flash -= 0.012;
     }
 
-    // Update & draw bolts
     bolts = bolts.filter(bolt => {
         bolt.update();
         bolt.draw();
@@ -807,14 +953,12 @@ function animateLightning() {
     requestAnimationFrame(animateLightning);
 }
 
-// Random lightning strikes
 function scheduleLightning() {
     createLightning();
-    const next = 1800 + Math.random() * 4200; // between 1.8s - 6s
+    const next = 1800 + Math.random() * 4200;
     setTimeout(scheduleLightning, next);
 }
 
-// Start everything
 animateLightning();
 setTimeout(scheduleLightning, 1200);
 
@@ -846,7 +990,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .nav-button');
+const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .nav-button, .close-timer');
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
@@ -871,6 +1015,68 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(element => {
     observer.observe(element);
 });
+
+// ========== COUNTDOWN TIMER ==========
+const overlay = document.getElementById('countdownOverlay');
+const closeBtn = document.getElementById('closeTimer');
+
+const openButtons = [
+    document.getElementById('openTimer1'),
+    document.getElementById('openTimer2'),
+    document.getElementById('openTimer3')
+];
+
+openButtons.forEach(btn => {
+    if (btn) {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+});
+
+closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+// Close with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Countdown logic
+const targetDate = new Date("January 29, 2027 00:00:00").getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance < 0) {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerText = days.toString().padStart(2, "0");
+    document.getElementById("hours").innerText = hours.toString().padStart(2, "0");
+    document.getElementById("minutes").innerText = minutes.toString().padStart(2, "0");
+    document.getElementById("seconds").innerText = seconds.toString().padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 </script>
 
 </body>
