@@ -28,6 +28,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 78px;
 }
 
 body {
@@ -152,8 +153,26 @@ nav {
     font-weight: 600;
 }
 
-.nav-links a:hover {
+.nav-links a {
+    transition: color 0.2s;
+    position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
     color: white;
+}
+
+.nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--blue);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--blue);
 }
 
 .nav-button {
@@ -164,11 +183,58 @@ nav {
     color: white;
     font-size: 13px;
     font-weight: 700;
+    transition: .25s;
+}
+
+.nav-button:hover {
+    background: #1f3b5c;
+    border-color: var(--blue);
+    box-shadow: 0 0 20px rgba(69,170,255,.25);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 7px;
+    font-size: 18px;
+}
+
+.mobile-drawer {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background: rgba(8,13,22,.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 5%;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 99;
+}
+
+.mobile-drawer.open {
+    display: flex;
+}
+
+.mobile-drawer a {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 6px 0;
+}
+
+.mobile-drawer a:hover {
+    color: white;
 }
 
 /* HERO */
 .hero {
-    min-height: 650px;
+    min-height: 660px;
     display: flex;
     align-items: center;
     text-align: center;
@@ -205,7 +271,7 @@ nav {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 4px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .hero h1 {
@@ -305,6 +371,26 @@ section {
 
 .blue-text {
     color: var(--blue);
+}
+
+/* SPOTLIGHT CARD EFFECT */
+.glow-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(69, 170, 255, 0.12), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.glow-card:hover::after {
+    opacity: 1;
 }
 
 /* FEATURES */
@@ -544,12 +630,76 @@ section {
     line-height: 1.9;
 }
 
-/* DOWNLOAD */
-.download {
+/* FAQ ACCORDION */
+.faq {
     background: #0b111d;
     border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-list {
+    max-width: 740px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faq-item {
+    background: linear-gradient(145deg, #121e30, #0c1421);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.25s;
+}
+
+.faq-item.open {
+    border-color: rgba(69, 170, 255, 0.45);
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text);
+    padding: 22px 26px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.faq-icon {
+    color: var(--blue);
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.faq-answer p {
+    padding: 0 26px 22px;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+/* DOWNLOAD */
+.download {
     text-align: center;
-    background-image: radial-gradient(ellipse at center, rgba(31,111,187,.13), transparent 65%);
+    background: radial-gradient(ellipse at center, rgba(31,111,187,.13), transparent 65%);
 }
 
 .download-box {
@@ -584,6 +734,39 @@ section {
     font-weight: 800;
     letter-spacing: 2px;
     margin-bottom: 25px;
+}
+
+/* BACK TO TOP */
+.back-to-top {
+    position: fixed;
+    bottom: 26px;
+    right: 26px;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(16, 26, 42, 0.9);
+    border: 1px solid rgba(69, 170, 255, 0.3);
+    color: var(--blue);
+    font-size: 18px;
+    display: grid;
+    place-items: center;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, border-color 0.2s;
+    backdrop-filter: blur(10px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    border-color: var(--blue);
+    box-shadow: 0 0 20px rgba(69, 170, 255, 0.35);
 }
 
 /* FOOTER */
@@ -772,13 +955,13 @@ footer p {
 }
 
 /* MOBILE */
-@media(max-width: 820px) {
-    .nav-links {
-        gap: 10px;
-        font-size: 10.5px;
-    }
+@media(max-width: 860px) {
+    .nav-links,
     .nav-button {
         display: none;
+    }
+    .mobile-menu-btn {
+        display: block;
     }
     .feature-grid,
     .plans-grid {
@@ -800,12 +983,8 @@ footer p {
 }
 
 @media(max-width: 450px) {
-    .nav-links {
-        gap: 7px;
-        font-size: 9.5px;
-    }
     .logo {
-        font-size: 18px;
+        font-size: 20px;
     }
     .tagline {
         font-size: 12px;
@@ -869,11 +1048,26 @@ footer p {
             <a href="#progress">Progress</a>
             <a href="#plans">Plans</a>
             <a href="#about">About</a>
+            <a href="#faq">FAQ</a>
             <a href="#download">Download</a>
         </div>
         <a href="#" class="nav-button" id="openTimer1">Get STRAVIX ↗</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">☰</button>
     </div>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+    <a href="#features">Features</a>
+    <a href="#showcase">Showcase</a>
+    <a href="#updates">Updates</a>
+    <a href="#progress">Progress</a>
+    <a href="#plans">Plans</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#download">Download</a>
+    <a href="#" class="btn btn-primary" id="openTimerMobile" style="text-align:center;margin-top:6px;">Get STRAVIX ↗</a>
+</div>
 
 <!-- HERO -->
 <header class="hero">
@@ -903,32 +1097,32 @@ footer p {
             <p>A familiar experience, thoughtfully reimagined.</p>
         </div>
         <div class="feature-grid">
-            <div class="feature-card reveal">
+            <div class="feature-card glow-card reveal">
                 <div class="feature-icon">⚡</div>
                 <h3>Performance Focused</h3>
                 <p>A client designed with smooth gameplay and performance in mind.</p>
             </div>
-            <div class="feature-card reveal">
+            <div class="feature-card glow-card reveal">
                 <div class="feature-icon">✦</div>
                 <h3>Modern Interface</h3>
                 <p>A clean, polished interface designed to make every interaction feel better.</p>
             </div>
-            <div class="feature-card reveal">
+            <div class="feature-card glow-card reveal">
                 <div class="feature-icon">◈</div>
                 <h3>Vanilla Experience</h3>
                 <p>Keep the Minecraft experience familiar while enjoying modern improvements.</p>
             </div>
-            <div class="feature-card reveal">
+            <div class="feature-card glow-card reveal">
                 <div class="feature-icon">⚙</div>
                 <h3>Customization</h3>
                 <p>A vision for useful settings and personalized gameplay.</p>
             </div>
-            <div class="feature-card reveal">
+            <div class="feature-card glow-card reveal">
                 <div class="feature-icon">◇</div>
                 <h3>Clean Design</h3>
                 <p>No unnecessary clutter. Just a straightforward and beautiful experience.</p>
             </div>
-            <div class="feature-card reveal">
+            <div class="feature-card glow-card reveal">
                 <div class="feature-icon">⬡</div>
                 <h3>Built to Evolve</h3>
                 <p>A growing project with room for new ideas and future improvements.</p>
@@ -968,7 +1162,7 @@ footer p {
             <h2>Current <span class="blue-text">Progress.</span></h2>
         </div>
 
-        <div class="progress-wrapper reveal">
+        <div class="progress-wrapper glow-card reveal">
             <div class="progress-header">
                 <span class="progress-title">Finish website</span>
                 <span class="progress-percent">1%</span>
@@ -990,7 +1184,7 @@ footer p {
         </div>
 
         <div class="plans-grid">
-            <div class="plan-card reveal">
+            <div class="plan-card glow-card reveal">
                 <span class="plan-badge">Step 01</span>
                 <h3>Website & Community</h3>
                 <p>Launching the official STRAVIX web hub and opening community channels for feedback.</p>
@@ -1001,18 +1195,18 @@ footer p {
                 </ul>
             </div>
 
-            <div class="plan-card reveal">
+            <div class="plan-card glow-card reveal">
                 <span class="plan-badge">Step 02</span>
                 <h3>Core Client Build</h3>
-                <p>Developing the performance engine, redesigned UI, and essential vanilla-friendly mods.</p>
+                <p>Developing the performance engine, redesigned UI, and bringing popular features to Eaglercraft.</p>
                 <ul class="plan-items">
+                    <li>Mod porting</li>
                     <li>FPS & rendering optimizations</li>
                     <li>Modern menu & HUD editor</li>
-                    <li>Internal alpha testing</li>
                 </ul>
             </div>
 
-            <div class="plan-card reveal">
+            <div class="plan-card glow-card reveal">
                 <span class="plan-badge">Step 03</span>
                 <h3>Official Release</h3>
                 <p>Polishing every detail ahead of our public release date on January 29, 2027.</p>
@@ -1044,10 +1238,52 @@ footer p {
     </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq" id="faq">
+    <div class="container">
+        <div class="section-heading reveal">
+            <div class="eyebrow">COMMON QUESTIONS</div>
+            <h2>Frequently Asked <span class="blue-text">Questions.</span></h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>What is STRAVIX?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>STRAVIX is a modern Eaglercraft client built to combine the familiar feel of vanilla Minecraft with cleaner UI design, smoother frame rates, and ported quality-of-life mods.</p>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>When does STRAVIX release?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>The official public release of STRAVIX is scheduled for January 29, 2027. You can view the live countdown anytime by clicking "Get STRAVIX" at the top of the page.</p>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question">
+                    <span>Will STRAVIX support custom mods and HUD customization?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes. Mod porting and a modular HUD editor are core parts of Step 02 in our roadmap, letting you toggle, move, and configure your favorite client features directly in-game.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- DOWNLOAD -->
 <section class="download" id="download">
     <div class="container">
-        <div class="download-box reveal">
+        <div class="download-box glow-card reveal">
             <div class="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</div>
             <h2>Meet <span class="blue-text">STRAVIX.</span></h2>
             <p>We're working toward something different. Stay tuned for the official release.</p>
@@ -1057,6 +1293,9 @@ footer p {
         </div>
     </div>
 </section>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
 <!-- FOOTER -->
 <footer>
@@ -1071,6 +1310,7 @@ footer p {
             <a href="#progress">Progress</a>
             <a href="#plans">Plans</a>
             <a href="#about">About</a>
+            <a href="#faq">FAQ</a>
             <a href="#download">Download</a>
         </div>
         <p>© 2026 STRAVIX. All rights reserved.</p>
@@ -1200,7 +1440,7 @@ function scheduleLightning() {
 animateLightning();
 setTimeout(scheduleLightning, 1200);
 
-// ========== CUSTOM CURSOR ==========
+// ========== CUSTOM CURSOR & CARD SPOTLIGHT ==========
 const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
 
@@ -1228,7 +1468,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .progress-wrapper, .plan-card, .nav-button, .close-timer');
+const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .progress-wrapper, .plan-card, .faq-question, .nav-button, .close-timer, .back-to-top');
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
@@ -1238,6 +1478,87 @@ hoverElements.forEach(el => {
         cursor.classList.remove('hover');
         follower.classList.remove('hover');
     });
+});
+
+// Subtle radial spotlight following mouse on cards
+document.querySelectorAll('.glow-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    });
+});
+
+// ========== MOBILE MENU ==========
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileDrawer = document.getElementById('mobileDrawer');
+
+mobileMenuBtn.addEventListener('click', () => {
+    mobileDrawer.classList.toggle('open');
+    mobileMenuBtn.textContent = mobileDrawer.classList.contains('open') ? '✕' : '☰';
+});
+
+mobileDrawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileDrawer.classList.remove('open');
+        mobileMenuBtn.textContent = '☰';
+    });
+});
+
+// ========== FAQ ACCORDION ==========
+document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    btn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item').forEach(other => {
+            other.classList.remove('open');
+            other.querySelector('.faq-answer').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+            item.classList.add('open');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+    });
+});
+
+// ========== ACTIVE NAV & BACK TO TOP ==========
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+
+    // Back to top visibility
+    if (scrollY > 500) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+
+    // Active nav highlight
+    let current = '';
+    sections.forEach(sec => {
+        const top = sec.offsetTop - 160;
+        if (scrollY >= top) {
+            current = sec.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ========== REVEAL ANIMATIONS ==========
@@ -1261,7 +1582,8 @@ const closeBtn = document.getElementById('closeTimer');
 const openButtons = [
     document.getElementById('openTimer1'),
     document.getElementById('openTimer2'),
-    document.getElementById('openTimer3')
+    document.getElementById('openTimer3'),
+    document.getElementById('openTimerMobile')
 ];
 
 openButtons.forEach(btn => {
