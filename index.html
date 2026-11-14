@@ -146,7 +146,7 @@ nav {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
     color: var(--muted);
     font-size: 13px;
     font-weight: 600;
@@ -377,26 +377,18 @@ section {
     letter-spacing: 2px;
 }
 
-/* UPDATES SECTION */
+/* UPDATES (EMPTY CONTAINER READY FOR FUTURE POSTS) */
 .updates {
     background: #0b111d;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 }
 
-.updates-empty {
-    max-width: 680px;
-    margin: auto;
-    padding: 45px 25px;
-    text-align: center;
-    background: linear-gradient(145deg, #121e30, #0c1421);
-    border: 1px dashed rgba(130,180,230,.22);
-    border-radius: 12px;
-    color: var(--muted);
-    font-size: 14px;
+.updates .section-heading {
+    margin-bottom: 0;
 }
 
-/* PLANS SECTION */
+/* PLANS */
 .plans-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -418,7 +410,7 @@ section {
     border-color: rgba(69,170,255,.5);
 }
 
-.plan-phase {
+.plan-tag {
     display: inline-block;
     width: fit-content;
     padding: 5px 12px;
@@ -445,7 +437,7 @@ section {
     margin-bottom: 20px;
 }
 
-.plan-items {
+.plan-list {
     list-style: none;
     margin-top: auto;
     display: flex;
@@ -455,7 +447,7 @@ section {
     padding-top: 18px;
 }
 
-.plan-items li {
+.plan-list li {
     font-size: 12.5px;
     color: #b6c7db;
     display: flex;
@@ -463,7 +455,7 @@ section {
     gap: 10px;
 }
 
-.plan-items li::before {
+.plan-list li::before {
     content: "◈";
     color: var(--blue);
     font-size: 11px;
@@ -896,11 +888,8 @@ footer p {
         <div class="section-heading reveal">
             <div class="eyebrow">CHANGELOG & NEWS</div>
             <h2>Latest <span class="blue-text">Updates.</span></h2>
-            <p>Stay informed on new releases, patches, and client progress.</p>
         </div>
-        <div class="updates-empty reveal">
-            No updates posted yet. Check back soon for the latest news on STRAVIX.
-        </div>
+        <!-- Add your future update posts here -->
     </div>
 </section>
 
@@ -914,33 +903,33 @@ footer p {
         </div>
         <div class="plans-grid">
             <div class="plan-card reveal">
-                <span class="plan-phase">Phase 01</span>
-                <h3>Core Foundation</h3>
-                <p>Establishing a fast, stable base client without sacrificing the classic feel of Minecraft.</p>
-                <ul class="plan-items">
-                    <li>Frame-rate & memory optimization</li>
-                    <li>Clean main menu & HUD layout</li>
+                <span class="plan-tag">Phase 01</span>
+                <h3>Core Client & Performance</h3>
+                <p>Building a fast, lightweight foundation that keeps gameplay smooth and responsive.</p>
+                <ul class="plan-list">
+                    <li>Frame-rate & rendering optimizations</li>
+                    <li>Clean, redesigned main menu & UI</li>
                     <li>Essential quality-of-life settings</li>
                 </ul>
             </div>
             <div class="plan-card reveal">
-                <span class="plan-phase">Phase 02</span>
-                <h3>Customization & Polish</h3>
-                <p>Expanding player control with deeper visual and gameplay personalization tools.</p>
-                <ul class="plan-items">
-                    <li>Modular HUD editor</li>
-                    <li>Custom themes & visual tweaks</li>
-                    <li>Profile & config presets</li>
+                <span class="plan-tag">Phase 02</span>
+                <h3>Customization & HUD</h3>
+                <p>Giving players full control over how their screen and client look and feel.</p>
+                <ul class="plan-list">
+                    <li>Modular on-screen HUD editor</li>
+                    <li>Custom themes & visual options</li>
+                    <li>Saved profile configurations</li>
                 </ul>
             </div>
             <div class="plan-card reveal">
-                <span class="plan-phase">Phase 03</span>
-                <h3>Official Launch</h3>
-                <p>Delivering the complete STRAVIX experience to the Eaglercraft community on January 29, 2027.</p>
-                <ul class="plan-items">
-                    <li>Public client release</li>
-                    <li>Community feedback updates</li>
-                    <li>Ongoing feature expansions</li>
+                <span class="plan-tag">Phase 03</span>
+                <h3>Release & Expansion</h3>
+                <p>Launching STRAVIX to the community and expanding with new features over time.</p>
+                <ul class="plan-list">
+                    <li>Official release on January 29, 2027</li>
+                    <li>Community-requested modules</li>
+                    <li>Regular post-launch updates</li>
                 </ul>
             </div>
         </div>
