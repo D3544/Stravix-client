@@ -388,26 +388,103 @@ section {
     margin-bottom: 0;
 }
 
-/* PLANS */
-.plans-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+/* ========== PLANS BRACKET ========== */
+.bracket-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1040px;
+    margin: auto;
+}
+
+.bracket-round {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.bracket-node {
+    position: relative;
+}
+
+/* Right arms extending out of the two Phase 1/2 nodes */
+.bracket-round-left .bracket-node::after {
+    content: "";
+    position: absolute;
+    right: -36px;
+    top: 50%;
+    width: 36px;
+    height: 2px;
+    background: rgba(69, 170, 255, 0.35);
+}
+
+/* Vertical spine & horizontal bridge connecting into the Finals node */
+.bracket-connector {
+    width: 72px;
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bracket-connector::before {
+    content: "";
+    position: absolute;
+    left: 36px;
+    top: 25%;
+    bottom: 25%;
+    width: 2px;
+    background: rgba(69, 170, 255, 0.45);
+    box-shadow: 0 0 12px rgba(69, 170, 255, 0.35);
+}
+
+.bracket-connector::after {
+    content: "";
+    position: absolute;
+    left: 36px;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: var(--blue);
+    box-shadow: 0 0 12px rgba(69, 170, 255, 0.6);
+}
+
+.connector-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 14px var(--blue);
+    z-index: 2;
 }
 
 .plan-card {
     background: linear-gradient(145deg, #121e30, #0c1421);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 32px 28px;
+    padding: 28px;
     transition: .3s;
     display: flex;
     flex-direction: column;
 }
 
 .plan-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(69,170,255,.5);
+    transform: translateY(-4px);
+    border-color: rgba(69,170,255,.55);
+    box-shadow: 0 12px 35px rgba(69,170,255,.08);
+}
+
+.plan-card.final-node {
+    border-color: rgba(69, 170, 255, 0.4);
+    background: linear-gradient(145deg, #15253c, #0d1626);
+    box-shadow: 0 0 40px rgba(69, 170, 255, 0.08);
+}
+
+.plan-card.final-node:hover {
+    border-color: var(--blue);
+    box-shadow: 0 0 45px rgba(69, 170, 255, 0.2);
 }
 
 .plan-tag {
@@ -422,29 +499,34 @@ section {
     background: rgba(69,170,255,.1);
     color: var(--blue);
     border: 1px solid rgba(69,170,255,.22);
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+}
+
+.plan-card.final-node .plan-tag {
+    background: rgba(69,170,255,.18);
+    color: var(--light);
+    border-color: rgba(69,170,255,.45);
 }
 
 .plan-card h3 {
-    font-size: 19px;
-    margin-bottom: 12px;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .plan-card p {
     font-size: 13px;
     color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 20px;
+    line-height: 1.75;
+    margin-bottom: 18px;
 }
 
 .plan-list {
     list-style: none;
-    margin-top: auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 9px;
     border-top: 1px solid var(--border);
-    padding-top: 18px;
+    padding-top: 16px;
 }
 
 .plan-list li {
@@ -708,6 +790,36 @@ footer p {
 }
 
 /* MOBILE */
+@media(max-width: 820px) {
+    .bracket-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .bracket-round {
+        width: 100%;
+        gap: 20px;
+    }
+    .bracket-round-left .bracket-node::after {
+        display: none;
+    }
+    .bracket-connector {
+        width: 2px;
+        height: 42px;
+        align-self: center;
+    }
+    .bracket-connector::before {
+        display: none;
+    }
+    .bracket-connector::after {
+        left: 0;
+        right: auto;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        height: 100%;
+    }
+}
+
 @media(max-width: 750px) {
     .nav-links {
         gap: 12px;
@@ -716,8 +828,7 @@ footer p {
     .nav-button {
         display: none;
     }
-    .feature-grid,
-    .plans-grid {
+    .feature-grid {
         grid-template-columns: 1fr;
     }
     .hero {
@@ -889,48 +1000,67 @@ footer p {
             <div class="eyebrow">CHANGELOG & NEWS</div>
             <h2>Latest <span class="blue-text">Updates.</span></h2>
         </div>
-        <!-- Add your future update posts here -->
     </div>
 </section>
 
-<!-- PLANS -->
+<!-- PLANS (BRACKET) -->
 <section class="plans" id="plans">
     <div class="container">
         <div class="section-heading reveal">
             <div class="eyebrow">ROADMAP & VISION</div>
             <h2>Our <span class="blue-text">Plans.</span></h2>
-            <p>What we are building toward for launch and beyond.</p>
+            <p>How every stage builds toward the official release.</p>
         </div>
-        <div class="plans-grid">
-            <div class="plan-card reveal">
-                <span class="plan-tag">Phase 01</span>
-                <h3>Core Client & Performance</h3>
-                <p>Building a fast, lightweight foundation that keeps gameplay smooth and responsive.</p>
-                <ul class="plan-list">
-                    <li>Frame-rate & rendering optimizations</li>
-                    <li>Clean, redesigned main menu & UI</li>
-                    <li>Essential quality-of-life settings</li>
-                </ul>
+
+        <div class="bracket-wrapper">
+            <!-- ROUND 1: TWO PARALLEL TRACKS -->
+            <div class="bracket-round bracket-round-left">
+                <div class="bracket-node reveal">
+                    <div class="plan-card">
+                        <span class="plan-tag">Stage 01 · Foundation</span>
+                        <h3>Core Client & Performance</h3>
+                        <p>Building a fast, lightweight foundation that keeps gameplay smooth and responsive.</p>
+                        <ul class="plan-list">
+                            <li>Frame-rate & rendering optimizations</li>
+                            <li>Clean, redesigned main menu & UI</li>
+                            <li>Essential quality-of-life settings</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bracket-node reveal">
+                    <div class="plan-card">
+                        <span class="plan-tag">Stage 02 · Personalization</span>
+                        <h3>Customization & HUD</h3>
+                        <p>Giving players full control over how their screen and client look and feel.</p>
+                        <ul class="plan-list">
+                            <li>Modular on-screen HUD editor</li>
+                            <li>Custom themes & visual options</li>
+                            <li>Saved profile configurations</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="plan-card reveal">
-                <span class="plan-tag">Phase 02</span>
-                <h3>Customization & HUD</h3>
-                <p>Giving players full control over how their screen and client look and feel.</p>
-                <ul class="plan-list">
-                    <li>Modular on-screen HUD editor</li>
-                    <li>Custom themes & visual options</li>
-                    <li>Saved profile configurations</li>
-                </ul>
+
+            <!-- BRACKET CONNECTOR LINES -->
+            <div class="bracket-connector reveal">
+                <div class="connector-dot"></div>
             </div>
-            <div class="plan-card reveal">
-                <span class="plan-tag">Phase 03</span>
-                <h3>Release & Expansion</h3>
-                <p>Launching STRAVIX to the community and expanding with new features over time.</p>
-                <ul class="plan-list">
-                    <li>Official release on January 29, 2027</li>
-                    <li>Community-requested modules</li>
-                    <li>Regular post-launch updates</li>
-                </ul>
+
+            <!-- FINALS: COMBINED LAUNCH -->
+            <div class="bracket-round bracket-round-right">
+                <div class="bracket-node reveal">
+                    <div class="plan-card final-node">
+                        <span class="plan-tag">Stage 03 · Official Launch</span>
+                        <h3>Release & Expansion</h3>
+                        <p>Bringing performance and customization together for the full STRAVIX launch on January 29, 2027.</p>
+                        <ul class="plan-list">
+                            <li>Public STRAVIX client release</li>
+                            <li>Community-requested modules</li>
+                            <li>Ongoing post-launch updates</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
