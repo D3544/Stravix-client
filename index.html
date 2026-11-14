@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +23,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: none; /* Hide default cursor */
 }
 
 html {
@@ -46,13 +46,67 @@ button {
     font: inherit;
 }
 
+/* ========== CUSTOM CURSOR ========== */
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    background: var(--blue);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    box-shadow: 0 0 12px rgba(69, 170, 255, 0.7);
+}
+
+.cursor.hover {
+    width: 42px;
+    height: 42px;
+    background: rgba(69, 170, 255, 0.25);
+    border: 2px solid var(--blue);
+    box-shadow: 0 0 25px rgba(69, 170, 255, 0.6);
+}
+
+.cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid rgba(69, 170, 255, 0.45);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+.cursor-follower.hover {
+    width: 60px;
+    height: 60px;
+    border-color: rgba(69, 170, 255, 0.8);
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .cursor, .cursor-follower {
+        display: none !important;
+    }
+    * {
+        cursor: auto !important;
+    }
+}
+
 .container {
     width: min(1120px, 90%);
     margin: auto;
 }
 
 /* NAVIGATION */
-
 nav {
     height: 78px;
     display: flex;
@@ -100,7 +154,6 @@ nav {
 }
 
 /* HERO */
-
 .hero {
     min-height: 650px;
     display: flex;
@@ -181,7 +234,7 @@ nav {
     font-weight: 700;
     font-size: 13px;
     transition: .25s;
-    cursor: pointer;
+    cursor: none; /* keep custom cursor */
 }
 
 .btn-primary {
@@ -213,7 +266,6 @@ nav {
 }
 
 /* GENERAL SECTIONS */
-
 section {
     padding: 105px 0;
 }
@@ -241,7 +293,6 @@ section {
 }
 
 /* FEATURES */
-
 .features {
     background: #0b111d;
     border-top: 1px solid var(--border);
@@ -292,7 +343,6 @@ section {
 }
 
 /* SHOWCASE */
-
 .showcase {
     text-align: center;
 }
@@ -313,7 +363,6 @@ section {
 }
 
 /* PHILOSOPHY */
-
 .philosophy {
     background: #0b111d;
     border-top: 1px solid var(--border);
@@ -337,7 +386,6 @@ section {
 }
 
 /* DOWNLOAD */
-
 .download {
     text-align: center;
     background: radial-gradient(ellipse at center, rgba(31,111,187,.13), transparent 65%);
@@ -378,7 +426,6 @@ section {
 }
 
 /* FOOTER */
-
 footer {
     border-top: 1px solid var(--border);
     padding: 35px 0;
@@ -416,7 +463,6 @@ footer p {
 }
 
 /* ANIMATIONS */
-
 @keyframes appear {
     from {
         opacity: 0;
@@ -440,7 +486,6 @@ footer p {
 }
 
 /* MOBILE */
-
 @media(max-width: 750px) {
     .nav-links {
         gap: 14px;
@@ -488,6 +533,10 @@ footer p {
 </head>
 
 <body>
+
+<!-- CUSTOM CURSOR ELEMENTS -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
 
 <!-- NAVIGATION -->
 <nav>
@@ -620,7 +669,6 @@ footer p {
             </p>
         </div>
 
-        <!-- Change this path to wherever you upload your banner -->
         <img
             src="assets/stravix-banner.png"
             alt="STRAVIX cinematic Minecraft storm banner"
@@ -707,7 +755,52 @@ footer p {
 </footer>
 
 <script>
-// Smooth reveal animations
+// ========== CUSTOM CURSOR ==========
+const cursor = document.querySelector('.cursor');
+const follower = document.querySelector('.cursor-follower');
+
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+let followerX = 0, followerY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// Smooth animation loop
+function animateCursor() {
+    // Main cursor (fast)
+    cursorX += (mouseX - cursorX) * 0.25;
+    cursorY += (mouseY - cursorY) * 0.25;
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+
+    // Follower (slower / laggy for cool trail effect)
+    followerX += (mouseX - followerX) * 0.12;
+    followerY += (mouseY - followerY) * 0.12;
+    follower.style.left = followerX + 'px';
+    follower.style.top = followerY + 'px';
+
+    requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover effect on interactive elements
+const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .nav-button');
+
+hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        cursor.classList.add('hover');
+        follower.classList.add('hover');
+    });
+    el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover');
+        follower.classList.remove('hover');
+    });
+});
+
+// ========== REVEAL ANIMATIONS ==========
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
