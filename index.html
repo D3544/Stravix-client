@@ -389,159 +389,60 @@ section {
     margin-bottom: 0;
 }
 
-/* ========== TOURNAMENT BRACKET (PLANS) ========== */
-.tournament-bracket {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 0;
-    max-width: 1120px;
+/* ========== PLANS PROGRESS BAR ========== */
+.progress-wrapper {
+    max-width: 720px;
     margin: auto;
-}
-
-.bracket-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 24px;
-    position: relative;
-}
-
-.bracket-col-header {
-    text-align: center;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-    color: var(--light);
-    text-transform: uppercase;
-    margin-bottom: 14px;
-}
-
-.bracket-matchup {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    position: relative;
-}
-
-/* Connector bridge columns between rounds */
-.bracket-bridge {
-    width: 56px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding-top: 26px;
-}
-
-.bridge-fork {
-    height: 150px;
-    position: relative;
-}
-
-.bridge-fork::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 25%;
-    bottom: 25%;
-    width: 28px;
-    border-top: 2px solid rgba(69, 170, 255, 0.45);
-    border-bottom: 2px solid rgba(69, 170, 255, 0.45);
-    border-right: 2px solid rgba(69, 170, 255, 0.45);
-    border-radius: 0 8px 8px 0;
-}
-
-.bridge-fork::after {
-    content: "";
-    position: absolute;
-    left: 28px;
-    right: 0;
-    top: 50%;
-    height: 2px;
-    background: var(--blue);
-    box-shadow: 0 0 10px rgba(69, 170, 255, 0.6);
-}
-
-.bridge-fork.tall {
-    height: 310px;
-}
-
-.bracket-card {
     background: linear-gradient(145deg, #121e30, #0c1421);
     border: 1px solid var(--border);
-    border-radius: 11px;
-    padding: 18px 20px;
+    border-radius: 14px;
+    padding: 36px 32px;
     transition: .3s;
-    position: relative;
 }
 
-.bracket-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(69, 170, 255, 0.55);
-    box-shadow: 0 10px 28px rgba(69, 170, 255, 0.1);
+.progress-wrapper:hover {
+    border-color: rgba(69, 170, 255, 0.45);
+    box-shadow: 0 15px 40px rgba(69, 170, 255, 0.08);
 }
 
-.bracket-seed {
+.progress-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
-.seed-badge {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: var(--blue);
-    background: rgba(69, 170, 255, 0.12);
-    border: 1px solid rgba(69, 170, 255, 0.25);
-    padding: 3px 9px;
-    border-radius: 20px;
-    text-transform: uppercase;
-}
-
-.seed-status {
-    font-size: 10px;
+.progress-title {
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--muted);
-    text-transform: uppercase;
-}
-
-.bracket-card h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 6px;
     color: var(--text);
 }
 
-.bracket-card p {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.6;
+.progress-percent {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--blue);
+    font-variant-numeric: tabular-nums;
 }
 
-.bracket-card.champion-card {
-    border: 1px solid rgba(69, 170, 255, 0.55);
-    background: linear-gradient(145deg, #162842, #0d1728);
-    box-shadow: 0 0 40px rgba(69, 170, 255, 0.14);
-    padding: 26px 22px;
+.progress-track {
+    width: 100%;
+    height: 14px;
+    background: rgba(8, 13, 22, 0.9);
+    border: 1px solid rgba(130, 180, 230, 0.16);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
 }
 
-.bracket-card.champion-card:hover {
-    border-color: var(--blue);
-    box-shadow: 0 0 50px rgba(69, 170, 255, 0.28);
-}
-
-.bracket-card.champion-card .seed-badge {
-    background: rgba(69, 170, 255, 0.22);
-    color: var(--light);
-    border-color: rgba(69, 170, 255, 0.5);
-}
-
-.bracket-card.champion-card h3 {
-    font-size: 18px;
+.progress-fill {
+    width: 1%;
+    min-width: 10px;
+    height: 100%;
+    background: linear-gradient(90deg, #2b8be6, var(--blue));
+    border-radius: 999px;
+    box-shadow: 0 0 16px rgba(69, 170, 255, 0.8);
+    transition: width 0.6s ease;
 }
 
 /* PHILOSOPHY */
@@ -791,16 +692,6 @@ footer p {
 }
 
 /* MOBILE */
-@media(max-width: 900px) {
-    .tournament-bracket {
-        flex-direction: column;
-        gap: 32px;
-    }
-    .bracket-bridge {
-        display: none;
-    }
-}
-
 @media(max-width: 750px) {
     .nav-links {
         gap: 12px;
@@ -821,6 +712,9 @@ footer p {
     .footer-content {
         justify-content: center;
         text-align: center;
+    }
+    .progress-wrapper {
+        padding: 26px 22px;
     }
 }
 
@@ -984,106 +878,21 @@ footer p {
     </div>
 </section>
 
-<!-- PLANS (TOURNAMENT BRACKET) -->
+<!-- PLANS -->
 <section class="plans" id="plans">
     <div class="container">
         <div class="section-heading reveal">
             <div class="eyebrow">ROADMAP & VISION</div>
             <h2>Our <span class="blue-text">Plans.</span></h2>
-            <p>From initial architecture to the official release.</p>
         </div>
 
-        <div class="tournament-bracket">
-            <!-- ROUND 1 -->
-            <div class="bracket-col reveal">
-                <div class="bracket-col-header">Round 01 · Foundation</div>
-                <div class="bracket-matchup">
-                    <div class="bracket-card">
-                        <div class="bracket-seed">
-                            <span class="seed-badge">01 · Engine</span>
-                            <span class="seed-status">Core</span>
-                        </div>
-                        <h3>FPS & Memory Tuning</h3>
-                        <p>Streamlined rendering loop and lower overhead for smooth frame pacing.</p>
-                    </div>
-                    <div class="bracket-card">
-                        <div class="bracket-seed">
-                            <span class="seed-badge">02 · Interface</span>
-                            <span class="seed-status">Design</span>
-                        </div>
-                        <h3>Clean Menu Overhaul</h3>
-                        <p>Modernized title screen, crisp typography, and zero visual clutter.</p>
-                    </div>
-                </div>
-
-                <div class="bracket-matchup">
-                    <div class="bracket-card">
-                        <div class="bracket-seed">
-                            <span class="seed-badge">03 · Controls</span>
-                            <span class="seed-status">Custom</span>
-                        </div>
-                        <h3>Modular HUD Editor</h3>
-                        <p>Drag, scale, and toggle on-screen elements to fit your playstyle.</p>
-                    </div>
-                    <div class="bracket-card">
-                        <div class="bracket-seed">
-                            <span class="seed-badge">04 · Vanilla+</span>
-                            <span class="seed-status">QoL</span>
-                        </div>
-                        <h3>Essential Client Mods</h3>
-                        <p>Thoughtful quality-of-life utilities that keep gameplay faithful to vanilla.</p>
-                    </div>
-                </div>
+        <div class="progress-wrapper reveal">
+            <div class="progress-header">
+                <span class="progress-title">Finish website</span>
+                <span class="progress-percent">1%</span>
             </div>
-
-            <!-- BRIDGE 1 -->
-            <div class="bracket-bridge reveal">
-                <div class="bridge-fork"></div>
-                <div class="bridge-fork"></div>
-            </div>
-
-            <!-- SEMIFINALS -->
-            <div class="bracket-col reveal">
-                <div class="bracket-col-header">Round 02 · Integration</div>
-                <div class="bracket-matchup">
-                    <div class="bracket-card">
-                        <div class="bracket-seed">
-                            <span class="seed-badge">Semi · Alpha</span>
-                            <span class="seed-status">Build</span>
-                        </div>
-                        <h3>Unified Client Experience</h3>
-                        <p>Merging high-FPS engine work with the redesigned STRAVIX interface.</p>
-                    </div>
-                </div>
-
-                <div class="bracket-matchup">
-                    <div class="bracket-card">
-                        <div class="bracket-seed">
-                            <span class="seed-badge">Semi · Beta</span>
-                            <span class="seed-status">Polish</span>
-                        </div>
-                        <h3>Profiles & Stability Pass</h3>
-                        <p>Saved configuration presets, bug fixes, and final pre-launch testing.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BRIDGE 2 -->
-            <div class="bracket-bridge reveal">
-                <div class="bridge-fork tall"></div>
-            </div>
-
-            <!-- FINALS -->
-            <div class="bracket-col reveal">
-                <div class="bracket-col-header">Finals · Launch</div>
-                <div class="bracket-card champion-card">
-                    <div class="bracket-seed">
-                        <span class="seed-badge">★ Official Release</span>
-                        <span class="seed-status">Jan 29, 2027</span>
-                    </div>
-                    <h3>STRAVIX 1.0 Public Launch</h3>
-                    <p>The complete next-generation Eaglercraft client released to the community, followed by ongoing feature updates.</p>
-                </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width: 1%;"></div>
             </div>
         </div>
     </div>
@@ -1290,7 +1099,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .bracket-card, .nav-button, .close-timer');
+const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .progress-wrapper, .nav-button, .close-timer');
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
