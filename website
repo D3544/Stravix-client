@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRAVIX — Vanilla. Refined.</title>
+<meta name="description" content="STRAVIX is a modern Minecraft client designed to refine the vanilla experience.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #080d16;
+    --panel: #101a2a;
+    --blue: #45aaff;
+    --light: #9bd3ff;
+    --text: #f2f7ff;
+    --muted: #8c9bb0;
+    --border: rgba(130,180,230,.13);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+.container {
+    width: min(1120px, 90%);
+    margin: auto;
+}
+
+/* NAVIGATION */
+
+nav {
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,13,22,.88);
+    backdrop-filter: blur(18px);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.logo span {
+    color: var(--blue);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.nav-button {
+    background: #182d46;
+    border: 1px solid #315c83;
+    padding: 11px 19px;
+    border-radius: 7px;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(27,116,201,.19), transparent 55%),
+      linear-gradient(180deg, #0b1422, #080d16);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--blue);
+    filter: blur(180px);
+    opacity: .12;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    animation: appear 1s ease;
+}
+
+.eyebrow {
+    color: var(--light);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 11vw, 112px);
+    font-weight: 900;
+    letter-spacing: 7px;
+    line-height: 1;
+    text-shadow: 0 0 55px rgba(69,170,255,.3);
+}
+
+.hero h1 span {
+    color: var(--blue);
+}
+
+.tagline {
+    color: #b6c7db;
+    font-size: 17px;
+    letter-spacing: 5px;
+    margin-top: 24px;
+}
+
+.hero-description {
+    color: var(--muted);
+    max-width: 530px;
+    margin: 24px auto 35px;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 25px;
+    border-radius: 7px;
+    font-weight: 700;
+    font-size: 13px;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--blue);
+    color: #06111d;
+    box-shadow: 0 0 30px rgba(69,170,255,.18);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 40px rgba(69,170,255,.4);
+}
+
+.btn-secondary {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.03);
+}
+
+.btn-secondary:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+}
+
+.hero-bottom {
+    margin-top: 75px;
+    color: #65768d;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+/* GENERAL SECTIONS */
+
+section {
+    padding: 105px 0;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-heading h2 {
+    font-size: clamp(30px, 5vw, 43px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 15px;
+    line-height: 1.7;
+}
+
+.blue-text {
+    color: var(--blue);
+}
+
+/* FEATURES */
+
+.features {
+    background: #0b111d;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.feature-card {
+    background: linear-gradient(145deg, #121e30, #0c1421);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 30px;
+    transition: .3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(69,170,255,.5);
+}
+
+.feature-icon {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    background: rgba(69,170,255,.1);
+    border: 1px solid rgba(69,170,255,.2);
+    border-radius: 10px;
+    color: var(--blue);
+    font-size: 21px;
+    margin-bottom: 23px;
+}
+
+.feature-card h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+/* SHOWCASE */
+
+.showcase {
+    text-align: center;
+}
+
+.showcase-image {
+    width: 100%;
+    display: block;
+    border-radius: 13px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 80px rgba(0,0,0,.4);
+}
+
+.showcase-caption {
+    margin-top: 22px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+}
+
+/* PHILOSOPHY */
+
+.philosophy {
+    background: #0b111d;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+}
+
+.philosophy h2 {
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.35;
+    max-width: 750px;
+    margin: auto;
+}
+
+.philosophy p {
+    max-width: 580px;
+    margin: 22px auto 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* DOWNLOAD */
+
+.download {
+    text-align: center;
+    background: radial-gradient(ellipse at center, rgba(31,111,187,.13), transparent 65%);
+}
+
+.download-box {
+    max-width: 700px;
+    margin: auto;
+    padding: 55px 25px;
+    background: linear-gradient(145deg, #111f33, #0c1421);
+    border: 1px solid rgba(69,170,255,.25);
+    border-radius: 15px;
+}
+
+.download-box h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.download-box p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.status {
+    display: inline-block;
+    padding: 8px 14px;
+    background: rgba(69,170,255,.1);
+    color: var(--light);
+    border: 1px solid rgba(69,170,255,.25);
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 35px 0;
+    background: #070b12;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-brand {
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-size: 18px;
+}
+
+.footer-brand span {
+    color: var(--blue);
+}
+
+footer p {
+    color: #65768d;
+    font-size: 11px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 22px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ANIMATIONS */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width: 750px) {
+    .nav-links {
+        gap: 14px;
+        font-size: 11px;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        min-height: 570px;
+    }
+
+    section {
+        padding: 75px 0;
+    }
+
+    .footer-content {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media(max-width: 450px) {
+    .nav-links {
+        gap: 10px;
+        font-size: 10px;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .tagline {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:90%;">
+        <a href="#" class="logo">STRA<span>VIX</span></a>
+
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#showcase">Showcase</a>
+            <a href="#about">About</a>
+            <a href="#download">Download</a>
+        </div>
+
+        <a href="#download" class="nav-button">Get STRAVIX ↗</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="container hero-content">
+
+        <div class="eyebrow">THE NEXT GENERATION OF EAGLERCRAFT</div>
+
+        <h1>STRA<span>VIX</span></h1>
+
+        <div class="tagline">VANILLA. REFINED.</div>
+
+        <p class="hero-description">
+            A new vision for Minecraft. Experience the familiarity
+            of vanilla gameplay combined with a modern,
+            polished client experience.
+        </p>
+
+        <div class="buttons">
+            <a href="#download" class="btn btn-primary">
+                Discover STRAVIX →
+            </a>
+
+            <a href="#features" class="btn btn-secondary">
+                Explore Features
+            </a>
+        </div>
+
+        <div class="hero-bottom">
+            BUILT FOR THE GAME YOU LOVE
+        </div>
+
+    </div>
+</header>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">WHAT MAKES US DIFFERENT</div>
+            <h2>More than just <span class="blue-text">vanilla.</span></h2>
+            <p>A familiar experience, thoughtfully reimagined.</p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card reveal">
+                <div class="feature-icon">⚡</div>
+                <h3>Performance Focused</h3>
+                <p>
+                    A client designed with smooth gameplay
+                    and performance in mind.
+                </p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon">✦</div>
+                <h3>Modern Interface</h3>
+                <p>
+                    A clean, polished interface designed
+                    to make every interaction feel better.
+                </p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon">◈</div>
+                <h3>Vanilla Experience</h3>
+                <p>
+                    Keep the Minecraft experience familiar
+                    while enjoying modern improvements.
+                </p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon">⚙</div>
+                <h3>Customization</h3>
+                <p>
+                    A vision for useful settings and
+                    personalized gameplay.
+                </p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon">◇</div>
+                <h3>Clean Design</h3>
+                <p>
+                    No unnecessary clutter. Just a
+                    straightforward and beautiful experience.
+                </p>
+            </div>
+
+            <div class="feature-card reveal">
+                <div class="feature-icon">⬡</div>
+                <h3>Built to Evolve</h3>
+                <p>
+                    A growing project with room for
+                    new ideas and future improvements.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase" id="showcase">
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <div class="eyebrow">THE STRAVIX EXPERIENCE</div>
+            <h2>A new look. A familiar world.</h2>
+            <p>
+                A glimpse into the world of STRAVIX.
+            </p>
+        </div>
+
+        <!-- Change this path to wherever you upload your banner -->
+        <img
+            src="assets/stravix-banner.png"
+            alt="STRAVIX cinematic Minecraft storm banner"
+            class="showcase-image reveal"
+            onerror="this.style.display='none';"
+        >
+
+        <div class="showcase-caption">
+            STRAVIX — VANILLA. REFINED.
+        </div>
+
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="philosophy" id="about">
+    <div class="container reveal">
+
+        <div class="eyebrow">OUR PHILOSOPHY</div>
+
+        <h2>
+            Minecraft doesn't need to change.
+            <span class="blue-text">The experience can evolve.</span>
+        </h2>
+
+        <p>
+            STRAVIX is built around one simple idea:
+            take what makes Minecraft special and give
+            players a more modern way to experience it.
+            Familiar gameplay. Thoughtful improvements.
+            A completely new identity.
+        </p>
+
+    </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="download">
+    <div class="container">
+
+        <div class="download-box reveal">
+
+            <div class="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</div>
+
+            <h2>Meet <span class="blue-text">STRAVIX.</span></h2>
+
+            <p>
+                We're working toward something different.
+                Stay tuned for the official release.
+            </p>
+
+            <div class="status">COMING SOON</div>
+
+            <br>
+
+            <a href="#"
+               class="btn btn-primary"
+               onclick="alert('STRAVIX is not available for download yet!'); return false;">
+                Coming Soon
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container footer-content">
+
+        <div>
+            <div class="footer-brand">STRA<span>VIX</span></div>
+            <p style="margin-top:8px;">VANILLA. REFINED.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#download">Download</a>
+        </div>
+
+        <p>© 2026 STRAVIX. All rights reserved.</p>
+
+    </div>
+</footer>
+
+<script>
+// Smooth reveal animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(element => {
+    observer.observe(element);
+});
+</script>
+
+</body>
+</html>
