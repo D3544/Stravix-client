@@ -23,7 +23,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: none; /* Hide default cursor */
+    cursor: none;
 }
 
 html {
@@ -44,6 +44,18 @@ a {
 
 button {
     font: inherit;
+}
+
+/* ========== LIGHTNING CANVAS ========== */
+#lightning-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.9;
 }
 
 /* ========== CUSTOM CURSOR ========== */
@@ -91,7 +103,6 @@ button {
     border-color: rgba(69, 170, 255, 0.8);
 }
 
-/* Hide custom cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
     .cursor, .cursor-follower {
         display: none !important;
@@ -104,6 +115,8 @@ button {
 .container {
     width: min(1120px, 90%);
     margin: auto;
+    position: relative;
+    z-index: 5;
 }
 
 /* NAVIGATION */
@@ -164,6 +177,7 @@ nav {
     background:
       radial-gradient(ellipse at 50% 40%, rgba(27,116,201,.19), transparent 55%),
       linear-gradient(180deg, #0b1422, #080d16);
+    z-index: 2;
 }
 
 .hero::before {
@@ -234,7 +248,6 @@ nav {
     font-weight: 700;
     font-size: 13px;
     transition: .25s;
-    cursor: none; /* keep custom cursor */
 }
 
 .btn-primary {
@@ -268,6 +281,8 @@ nav {
 /* GENERAL SECTIONS */
 section {
     padding: 105px 0;
+    position: relative;
+    z-index: 5;
 }
 
 .section-heading {
@@ -430,6 +445,8 @@ footer {
     border-top: 1px solid var(--border);
     padding: 35px 0;
     background: #070b12;
+    position: relative;
+    z-index: 5;
 }
 
 .footer-content {
@@ -491,23 +508,18 @@ footer p {
         gap: 14px;
         font-size: 11px;
     }
-
     .nav-button {
         display: none;
     }
-
     .feature-grid {
         grid-template-columns: 1fr;
     }
-
     .hero {
         min-height: 570px;
     }
-
     section {
         padding: 75px 0;
     }
-
     .footer-content {
         justify-content: center;
         text-align: center;
@@ -519,11 +531,9 @@ footer p {
         gap: 10px;
         font-size: 10px;
     }
-
     .logo {
         font-size: 19px;
     }
-
     .tagline {
         font-size: 12px;
         letter-spacing: 3px;
@@ -534,7 +544,10 @@ footer p {
 
 <body>
 
-<!-- CUSTOM CURSOR ELEMENTS -->
+<!-- LIGHTNING CANVAS -->
+<canvas id="lightning-canvas"></canvas>
+
+<!-- CUSTOM CURSOR -->
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 
@@ -542,14 +555,12 @@ footer p {
 <nav>
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:90%;">
         <a href="#" class="logo">STRA<span>VIX</span></a>
-
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#showcase">Showcase</a>
             <a href="#about">About</a>
             <a href="#download">Download</a>
         </div>
-
         <a href="#download" class="nav-button">Get STRAVIX ↗</a>
     </div>
 </nav>
@@ -557,102 +568,61 @@ footer p {
 <!-- HERO -->
 <header class="hero">
     <div class="container hero-content">
-
         <div class="eyebrow">THE NEXT GENERATION OF EAGLERCRAFT</div>
-
         <h1>STRA<span>VIX</span></h1>
-
         <div class="tagline">THE NEXT BIG EAGLERCRAFT CLIENT.</div>
-
         <p class="hero-description">
             A new vision for Minecraft. Experience the familiarity
             of vanilla gameplay combined with a modern,
             polished client experience.
         </p>
-
         <div class="buttons">
-            <a href="#download" class="btn btn-primary">
-                Discover STRAVIX →
-            </a>
-
-            <a href="#features" class="btn btn-secondary">
-                Explore Features
-            </a>
+            <a href="#download" class="btn btn-primary">Discover STRAVIX →</a>
+            <a href="#features" class="btn btn-secondary">Explore Features</a>
         </div>
-
-        <div class="hero-bottom">
-            BUILT FOR THE GAME YOU LOVE
-        </div>
-
+        <div class="hero-bottom">BUILT FOR THE GAME YOU LOVE</div>
     </div>
 </header>
 
 <!-- FEATURES -->
 <section class="features" id="features">
     <div class="container">
-
         <div class="section-heading reveal">
             <div class="eyebrow">WHAT MAKES US DIFFERENT</div>
             <h2>More than just <span class="blue-text">vanilla.</span></h2>
             <p>A familiar experience, thoughtfully reimagined.</p>
         </div>
-
         <div class="feature-grid">
-
             <div class="feature-card reveal">
                 <div class="feature-icon">⚡</div>
                 <h3>Performance Focused</h3>
-                <p>
-                    A client designed with smooth gameplay
-                    and performance in mind.
-                </p>
+                <p>A client designed with smooth gameplay and performance in mind.</p>
             </div>
-
             <div class="feature-card reveal">
                 <div class="feature-icon">✦</div>
                 <h3>Modern Interface</h3>
-                <p>
-                    A clean, polished interface designed
-                    to make every interaction feel better.
-                </p>
+                <p>A clean, polished interface designed to make every interaction feel better.</p>
             </div>
-
             <div class="feature-card reveal">
                 <div class="feature-icon">◈</div>
                 <h3>Vanilla Experience</h3>
-                <p>
-                    Keep the Minecraft experience familiar
-                    while enjoying modern improvements.
-                </p>
+                <p>Keep the Minecraft experience familiar while enjoying modern improvements.</p>
             </div>
-
             <div class="feature-card reveal">
                 <div class="feature-icon">⚙</div>
                 <h3>Customization</h3>
-                <p>
-                    A vision for useful settings and
-                    personalized gameplay.
-                </p>
+                <p>A vision for useful settings and personalized gameplay.</p>
             </div>
-
             <div class="feature-card reveal">
                 <div class="feature-icon">◇</div>
                 <h3>Clean Design</h3>
-                <p>
-                    No unnecessary clutter. Just a
-                    straightforward and beautiful experience.
-                </p>
+                <p>No unnecessary clutter. Just a straightforward and beautiful experience.</p>
             </div>
-
             <div class="feature-card reveal">
                 <div class="feature-icon">⬡</div>
                 <h3>Built to Evolve</h3>
-                <p>
-                    A growing project with room for
-                    new ideas and future improvements.
-                </p>
+                <p>A growing project with room for new ideas and future improvements.</p>
             </div>
-
         </div>
     </div>
 </section>
@@ -660,40 +630,24 @@ footer p {
 <!-- SHOWCASE -->
 <section class="showcase" id="showcase">
     <div class="container">
-
         <div class="section-heading reveal">
             <div class="eyebrow">THE STRAVIX EXPERIENCE</div>
             <h2>A new look. A familiar world.</h2>
-            <p>
-                A glimpse into the world of STRAVIX.
-            </p>
+            <p>A glimpse into the world of STRAVIX.</p>
         </div>
-
-        <img
-            src="assets/stravix-banner.png"
-            alt="STRAVIX cinematic Minecraft storm banner"
-            class="showcase-image reveal"
-            onerror="this.style.display='none';"
-        >
-
-        <div class="showcase-caption">
-            STRAVIX — THE NEXT BIG EAGLERCRAFT CLIENT.
-        </div>
-
+        <img src="assets/stravix-banner.png" alt="STRAVIX cinematic Minecraft storm banner" class="showcase-image reveal" onerror="this.style.display='none';">
+        <div class="showcase-caption">STRAVIX — THE NEXT BIG EAGLERCRAFT CLIENT.</div>
     </div>
 </section>
 
 <!-- ABOUT -->
 <section class="philosophy" id="about">
     <div class="container reveal">
-
         <div class="eyebrow">OUR PHILOSOPHY</div>
-
         <h2>
             Minecraft doesn't need to change.
             <span class="blue-text">The experience can evolve.</span>
         </h2>
-
         <p>
             STRAVIX is built around one simple idea:
             take what makes Minecraft special and give
@@ -701,35 +655,19 @@ footer p {
             Familiar gameplay. Thoughtful improvements.
             A completely new identity.
         </p>
-
     </div>
 </section>
 
 <!-- DOWNLOAD -->
 <section class="download" id="download">
     <div class="container">
-
         <div class="download-box reveal">
-
             <div class="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</div>
-
             <h2>Meet <span class="blue-text">STRAVIX.</span></h2>
-
-            <p>
-                We're working toward something different.
-                Stay tuned for the official release.
-            </p>
-
+            <p>We're working toward something different. Stay tuned for the official release.</p>
             <div class="status">COMING SOON</div>
-
             <br>
-
-            <a href="#"
-               class="btn btn-primary"
-               onclick="alert('STRAVIX is not available for download yet!'); return false;">
-                Coming Soon
-            </a>
-
+            <a href="#" class="btn btn-primary" onclick="alert('STRAVIX is not available for download yet!'); return false;">Coming Soon</a>
         </div>
     </div>
 </section>
@@ -737,24 +675,149 @@ footer p {
 <!-- FOOTER -->
 <footer>
     <div class="container footer-content">
-
         <div>
             <div class="footer-brand">STRA<span>VIX</span></div>
             <p style="margin-top:8px;">THE NEXT BIG EAGLERCRAFT CLIENT.</p>
         </div>
-
         <div class="footer-links">
             <a href="#features">Features</a>
             <a href="#about">About</a>
             <a href="#download">Download</a>
         </div>
-
         <p>© 2026 STRAVIX. All rights reserved.</p>
-
     </div>
 </footer>
 
 <script>
+// ========== LIGHTNING SYSTEM ==========
+const canvas = document.getElementById('lightning-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Lightning {
+    constructor(x, y, targetX, targetY) {
+        this.segments = [];
+        this.x = x;
+        this.y = y;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.life = 1;
+        this.createBolt();
+    }
+
+    createBolt() {
+        this.segments = [];
+        let currentX = this.x;
+        let currentY = this.y;
+        const segments = 12 + Math.floor(Math.random() * 8);
+        const dx = (this.targetX - this.x) / segments;
+        const dy = (this.targetY - this.y) / segments;
+
+        for (let i = 0; i < segments; i++) {
+            const nextX = currentX + dx + (Math.random() - 0.5) * 60;
+            const nextY = currentY + dy + (Math.random() - 0.5) * 30;
+            this.segments.push({
+                x1: currentX,
+                y1: currentY,
+                x2: nextX,
+                y2: nextY
+            });
+            currentX = nextX;
+            currentY = nextY;
+        }
+        // Force last segment to end near target
+        this.segments[this.segments.length - 1].x2 = this.targetX + (Math.random() - 0.5) * 40;
+        this.segments[this.segments.length - 1].y2 = this.targetY + (Math.random() - 0.5) * 40;
+    }
+
+    update() {
+        this.life -= 0.035;
+    }
+
+    draw() {
+        if (this.life <= 0) return;
+
+        ctx.save();
+        ctx.globalAlpha = this.life;
+        ctx.strokeStyle = `rgba(180, 220, 255, ${0.9 * this.life})`;
+        ctx.lineWidth = 2.5;
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = '#45aaff';
+
+        ctx.beginPath();
+        this.segments.forEach((seg, i) => {
+            if (i === 0) ctx.moveTo(seg.x1, seg.y1);
+            ctx.lineTo(seg.x2, seg.y2);
+        });
+        ctx.stroke();
+
+        // Inner bright core
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.8 * this.life})`;
+        ctx.lineWidth = 1;
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+
+        ctx.restore();
+    }
+}
+
+let bolts = [];
+let flash = 0;
+
+function createLightning() {
+    const startX = Math.random() * canvas.width;
+    const startY = 0;
+    const endX = startX + (Math.random() - 0.5) * 400;
+    const endY = canvas.height * (0.4 + Math.random() * 0.5);
+
+    bolts.push(new Lightning(startX, startY, endX, endY));
+
+    // Sometimes create a second branch
+    if (Math.random() > 0.55) {
+        const mid = bolts[bolts.length - 1].segments[Math.floor(bolts[bolts.length - 1].segments.length / 2)];
+        bolts.push(new Lightning(mid.x1, mid.y1, mid.x1 + (Math.random() - 0.5) * 250, mid.y1 + 150 + Math.random() * 200));
+    }
+
+    flash = 0.18 + Math.random() * 0.15;
+}
+
+function animateLightning() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Screen flash
+    if (flash > 0) {
+        ctx.fillStyle = `rgba(100, 180, 255, ${flash * 0.25})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        flash -= 0.012;
+    }
+
+    // Update & draw bolts
+    bolts = bolts.filter(bolt => {
+        bolt.update();
+        bolt.draw();
+        return bolt.life > 0;
+    });
+
+    requestAnimationFrame(animateLightning);
+}
+
+// Random lightning strikes
+function scheduleLightning() {
+    createLightning();
+    const next = 1800 + Math.random() * 4200; // between 1.8s - 6s
+    setTimeout(scheduleLightning, next);
+}
+
+// Start everything
+animateLightning();
+setTimeout(scheduleLightning, 1200);
+
 // ========== CUSTOM CURSOR ==========
 const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
@@ -768,15 +831,12 @@ document.addEventListener('mousemove', (e) => {
     mouseY = e.clientY;
 });
 
-// Smooth animation loop
 function animateCursor() {
-    // Main cursor (fast)
     cursorX += (mouseX - cursorX) * 0.25;
     cursorY += (mouseY - cursorY) * 0.25;
     cursor.style.left = cursorX + 'px';
     cursor.style.top = cursorY + 'px';
 
-    // Follower (slower / laggy for cool trail effect)
     followerX += (mouseX - followerX) * 0.12;
     followerY += (mouseY - followerY) * 0.12;
     follower.style.left = followerX + 'px';
@@ -786,9 +846,7 @@ function animateCursor() {
 }
 animateCursor();
 
-// Hover effect on interactive elements
 const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .nav-button');
-
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
