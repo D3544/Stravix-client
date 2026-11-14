@@ -384,80 +384,96 @@ section {
     border-bottom: 1px solid var(--border);
 }
 
-.updates-list {
-    max-width: 780px;
+.updates-empty {
+    max-width: 680px;
     margin: auto;
-    display: flex;
-    flex-direction: column;
+    padding: 45px 25px;
+    text-align: center;
+    background: linear-gradient(145deg, #121e30, #0c1421);
+    border: 1px dashed rgba(130,180,230,.22);
+    border-radius: 12px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* PLANS SECTION */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 18px;
 }
 
-.update-card {
+.plan-card {
     background: linear-gradient(145deg, #121e30, #0c1421);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 28px 32px;
+    padding: 32px 28px;
     transition: .3s;
-    position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.update-card:hover {
-    transform: translateY(-4px);
+.plan-card:hover {
+    transform: translateY(-6px);
     border-color: rgba(69,170,255,.5);
 }
 
-.update-card::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--blue);
-    opacity: 0.7;
-}
-
-.update-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-}
-
-.update-badge {
-    padding: 4px 10px;
+.plan-phase {
+    display: inline-block;
+    width: fit-content;
+    padding: 5px 12px;
     border-radius: 20px;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    background: rgba(69,170,255,.12);
+    background: rgba(69,170,255,.1);
     color: var(--blue);
-    border: 1px solid rgba(69,170,255,.25);
+    border: 1px solid rgba(69,170,255,.22);
+    margin-bottom: 18px;
 }
 
-.update-date {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 500;
+.plan-card h3 {
+    font-size: 19px;
+    margin-bottom: 12px;
 }
 
-.update-card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: var(--text);
-}
-
-.update-card p {
-    font-size: 13.5px;
+.plan-card p {
+    font-size: 13px;
     color: var(--muted);
     line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.plan-items {
+    list-style: none;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+}
+
+.plan-items li {
+    font-size: 12.5px;
+    color: #b6c7db;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.plan-items li::before {
+    content: "◈";
+    color: var(--blue);
+    font-size: 11px;
 }
 
 /* PHILOSOPHY */
 .philosophy {
+    background: #0b111d;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     text-align: center;
 }
 
@@ -478,10 +494,8 @@ section {
 
 /* DOWNLOAD */
 .download {
-    background: #0b111d;
-    border-top: 1px solid var(--border);
     text-align: center;
-    background-image: radial-gradient(ellipse at center, rgba(31,111,187,.13), transparent 65%);
+    background: radial-gradient(ellipse at center, rgba(31,111,187,.13), transparent 65%);
 }
 
 .download-box {
@@ -704,13 +718,14 @@ footer p {
 /* MOBILE */
 @media(max-width: 750px) {
     .nav-links {
-        gap: 14px;
+        gap: 12px;
         font-size: 11px;
     }
     .nav-button {
         display: none;
     }
-    .feature-grid {
+    .feature-grid,
+    .plans-grid {
         grid-template-columns: 1fr;
     }
     .hero {
@@ -723,14 +738,11 @@ footer p {
         justify-content: center;
         text-align: center;
     }
-    .update-card {
-        padding: 22px;
-    }
 }
 
 @media(max-width: 450px) {
     .nav-links {
-        gap: 10px;
+        gap: 8px;
         font-size: 10px;
     }
     .logo {
@@ -795,6 +807,7 @@ footer p {
             <a href="#features">Features</a>
             <a href="#showcase">Showcase</a>
             <a href="#updates">Updates</a>
+            <a href="#plans">Plans</a>
             <a href="#about">About</a>
             <a href="#download">Download</a>
         </div>
@@ -881,34 +894,54 @@ footer p {
 <section class="updates" id="updates">
     <div class="container">
         <div class="section-heading reveal">
-            <div class="eyebrow">DEVELOPMENT LOG</div>
+            <div class="eyebrow">CHANGELOG & NEWS</div>
             <h2>Latest <span class="blue-text">Updates.</span></h2>
-            <p>Follow our progress as we build the next generation of Eaglercraft.</p>
+            <p>Stay informed on new releases, patches, and client progress.</p>
         </div>
-        <div class="updates-list">
-            <div class="update-card reveal">
-                <div class="update-meta">
-                    <span class="update-badge">Milestone</span>
-                    <span class="update-date">November 2026</span>
-                </div>
-                <h3>Official Release Countdown Live</h3>
-                <p>We have officially locked in our launch target for January 29, 2027. Core client architecture and UI systems are moving into internal testing.</p>
+        <div class="updates-empty reveal">
+            No updates posted yet. Check back soon for the latest news on STRAVIX.
+        </div>
+    </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans" id="plans">
+    <div class="container">
+        <div class="section-heading reveal">
+            <div class="eyebrow">ROADMAP & VISION</div>
+            <h2>Our <span class="blue-text">Plans.</span></h2>
+            <p>What we are building toward for launch and beyond.</p>
+        </div>
+        <div class="plans-grid">
+            <div class="plan-card reveal">
+                <span class="plan-phase">Phase 01</span>
+                <h3>Core Foundation</h3>
+                <p>Establishing a fast, stable base client without sacrificing the classic feel of Minecraft.</p>
+                <ul class="plan-items">
+                    <li>Frame-rate & memory optimization</li>
+                    <li>Clean main menu & HUD layout</li>
+                    <li>Essential quality-of-life settings</li>
+                </ul>
             </div>
-            <div class="update-card reveal">
-                <div class="update-meta">
-                    <span class="update-badge">UI & Design</span>
-                    <span class="update-date">October 2026</span>
-                </div>
-                <h3>Modern HUD & Settings Overhaul</h3>
-                <p>Redesigned the in-game menu and HUD editor from the ground up for maximum clarity, smooth animations, and zero screen clutter.</p>
+            <div class="plan-card reveal">
+                <span class="plan-phase">Phase 02</span>
+                <h3>Customization & Polish</h3>
+                <p>Expanding player control with deeper visual and gameplay personalization tools.</p>
+                <ul class="plan-items">
+                    <li>Modular HUD editor</li>
+                    <li>Custom themes & visual tweaks</li>
+                    <li>Profile & config presets</li>
+                </ul>
             </div>
-            <div class="update-card reveal">
-                <div class="update-meta">
-                    <span class="update-badge">Performance</span>
-                    <span class="update-date">September 2026</span>
-                </div>
-                <h3>Rendering Pipeline Optimizations</h3>
-                <p>Implemented initial frame-pacing improvements and memory optimizations to keep gameplay responsive across lower-end hardware.</p>
+            <div class="plan-card reveal">
+                <span class="plan-phase">Phase 03</span>
+                <h3>Official Launch</h3>
+                <p>Delivering the complete STRAVIX experience to the Eaglercraft community on January 29, 2027.</p>
+                <ul class="plan-items">
+                    <li>Public client release</li>
+                    <li>Community feedback updates</li>
+                    <li>Ongoing feature expansions</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -956,6 +989,7 @@ footer p {
         <div class="footer-links">
             <a href="#features">Features</a>
             <a href="#updates">Updates</a>
+            <a href="#plans">Plans</a>
             <a href="#about">About</a>
             <a href="#download">Download</a>
         </div>
@@ -1114,7 +1148,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .update-card, .nav-button, .close-timer');
+const hoverElements = document.querySelectorAll('a, button, .btn, .feature-card, .plan-card, .nav-button, .close-timer');
 hoverElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
