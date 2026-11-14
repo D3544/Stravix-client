@@ -1,2 +1,2 @@
-# fluffy-telegram
+# Stravix-client
 my most ambitious project 
